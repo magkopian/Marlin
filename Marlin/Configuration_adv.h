@@ -64,8 +64,8 @@
  * THERMAL_PROTECTION_HYSTERESIS and/or THERMAL_PROTECTION_PERIOD
  */
 #if ENABLED(THERMAL_PROTECTION_HOTENDS)
-  #define THERMAL_PROTECTION_PERIOD 40        // Seconds
-  #define THERMAL_PROTECTION_HYSTERESIS 4     // Degrees Celsius
+  #define THERMAL_PROTECTION_PERIOD 60           // Seconds
+  #define THERMAL_PROTECTION_HYSTERESIS 10       // Degrees Celsius
 
   /**
    * Whenever an M104, M109, or M303 increases the target temperature, the
@@ -79,22 +79,22 @@
    * and/or decrease WATCH_TEMP_INCREASE. WATCH_TEMP_INCREASE should not be set
    * below 2.
    */
-  #define WATCH_TEMP_PERIOD 20                // Seconds
-  #define WATCH_TEMP_INCREASE 2               // Degrees Celsius
+  #define WATCH_TEMP_PERIOD 30                  // Seconds
+  #define WATCH_TEMP_INCREASE 2                 // Degrees Celsius
 #endif
 
 /**
  * Thermal Protection parameters for the bed are just as above for hotends.
  */
 #if ENABLED(THERMAL_PROTECTION_BED)
-  #define THERMAL_PROTECTION_BED_PERIOD 20    // Seconds
-  #define THERMAL_PROTECTION_BED_HYSTERESIS 2 // Degrees Celsius
+  #define THERMAL_PROTECTION_BED_PERIOD 60      // Seconds
+  #define THERMAL_PROTECTION_BED_HYSTERESIS 5   // Degrees Celsius
 
   /**
    * As described above, except for the bed (M140/M190/M303).
    */
-  #define WATCH_BED_TEMP_PERIOD 60                // Seconds
-  #define WATCH_BED_TEMP_INCREASE 2               // Degrees Celsius
+  #define WATCH_BED_TEMP_PERIOD 120             // Seconds
+  #define WATCH_BED_TEMP_INCREASE 2             // Degrees Celsius
 #endif
 
 #if ENABLED(PIDTEMP)
@@ -127,7 +127,7 @@
 
 // Show Temperature ADC value
 // Enable for M105 to include ADC values read from temperature sensors.
-//#define SHOW_TEMP_ADC_VALUES
+#define SHOW_TEMP_ADC_VALUES
 
 /**
  * High Temperature Thermistor Support
@@ -349,11 +349,11 @@
 // @section homing
 
 // Homing hits each endstop, retracts by these distances, then does a slower bump.
-#define X_HOME_BUMP_MM 5
-#define Y_HOME_BUMP_MM 5
-#define Z_HOME_BUMP_MM 2
-#define HOMING_BUMP_DIVISOR { 2, 2, 4 }  // Re-Bump Speed Divisor (Divides the Homing Feedrate)
-//#define QUICK_HOME                     // If homing includes X and Y, do a diagonal move initially
+#define X_HOME_BUMP_MM 7
+#define Y_HOME_BUMP_MM 7
+#define Z_HOME_BUMP_MM 3
+#define HOMING_BUMP_DIVISOR { 3, 3, 5 }  // Re-Bump Speed Divisor (Divides the Homing Feedrate)
+#define QUICK_HOME                     // If homing includes X and Y, do a diagonal move initially
 
 // When G28 is called, this option will make Y home before X
 //#define HOME_Y_BEFORE_X
@@ -374,7 +374,7 @@
 // Default stepper release if idle. Set to 0 to deactivate.
 // Steppers will shut down DEFAULT_STEPPER_DEACTIVE_TIME seconds after the last move when DISABLE_INACTIVE_? is true.
 // Time can be set by M18 and M84.
-#define DEFAULT_STEPPER_DEACTIVE_TIME 120
+#define DEFAULT_STEPPER_DEACTIVE_TIME 0
 #define DISABLE_INACTIVE_X true
 #define DISABLE_INACTIVE_Y true
 #define DISABLE_INACTIVE_Z true  // set to false if the nozzle will fall down on your printed part when print has finished.
@@ -471,10 +471,10 @@
 // @section lcd
 
 // Include a page of printer information in the LCD Main Menu
-//#define LCD_INFO_MENU
+#define LCD_INFO_MENU
 
 // Scroll a longer status message into view
-//#define STATUS_MESSAGE_SCROLLING
+#define STATUS_MESSAGE_SCROLLING
 
 // On the Info Screen, display XY with one decimal place when possible
 //#define LCD_DECIMAL_SMALL_XY
@@ -557,7 +557,7 @@
   #endif
 
   // Show a progress bar on HD44780 LCDs for SD printing
-  //#define LCD_PROGRESS_BAR
+  #define LCD_PROGRESS_BAR
 
   #if ENABLED(LCD_PROGRESS_BAR)
     // Amount of time (ms) to show the bar
@@ -593,7 +593,7 @@
    * On print completion the LCD Menu will open with the file selected.
    * You can just click to start the print, or navigate elsewhere.
    */
-  //#define SD_REPRINT_LAST_SELECTED_FILE
+  #define SD_REPRINT_LAST_SELECTED_FILE
 
 #endif // SDSUPPORT
 
@@ -876,31 +876,31 @@
  * Requires NOZZLE_PARK_FEATURE.
  * This feature is required for the default FILAMENT_RUNOUT_SCRIPT.
  */
-//#define ADVANCED_PAUSE_FEATURE
+#define ADVANCED_PAUSE_FEATURE
 #if ENABLED(ADVANCED_PAUSE_FEATURE)
-  #define PAUSE_PARK_RETRACT_FEEDRATE 60      // Initial retract feedrate in mm/s
-  #define PAUSE_PARK_RETRACT_LENGTH 2         // Initial retract in mm
-                                              // It is a short retract used immediately after print interrupt before move to filament exchange position
-  #define FILAMENT_CHANGE_UNLOAD_FEEDRATE 10  // Unload filament feedrate in mm/s - filament unloading can be fast
-  #define FILAMENT_CHANGE_UNLOAD_LENGTH 100   // Unload filament length from hotend in mm
-                                              // Longer length for bowden printers to unload filament from whole bowden tube,
-                                              // shorter length for printers without bowden to unload filament from extruder only,
-                                              // 0 to disable unloading for manual unloading
-  #define FILAMENT_CHANGE_LOAD_FEEDRATE 6     // Load filament feedrate in mm/s - filament loading into the bowden tube can be fast
-  #define FILAMENT_CHANGE_LOAD_LENGTH 0       // Load filament length over hotend in mm
-                                              // Longer length for bowden printers to fast load filament into whole bowden tube over the hotend,
-                                              // Short or zero length for printers without bowden where loading is not used
-  #define ADVANCED_PAUSE_EXTRUDE_FEEDRATE 3   // Extrude filament feedrate in mm/s - must be slower than load feedrate
-  #define ADVANCED_PAUSE_EXTRUDE_LENGTH 50    // Extrude filament length in mm after filament is loaded over the hotend,
-                                              // 0 to disable for manual extrusion
-                                              // Filament can be extruded repeatedly from the filament exchange menu to fill the hotend,
-                                              // or until outcoming filament color is not clear for filament color change
-  #define PAUSE_PARK_NOZZLE_TIMEOUT 45        // Turn off nozzle if user doesn't change filament within this time limit in seconds
-  #define FILAMENT_CHANGE_NUMBER_OF_ALERT_BEEPS 5 // Number of alert beeps before printer goes quiet
-  #define PAUSE_PARK_NO_STEPPER_TIMEOUT       // Enable to have stepper motors hold position during filament change
-                                              // even if it takes longer than DEFAULT_STEPPER_DEACTIVE_TIME.
-  //#define PARK_HEAD_ON_PAUSE                // Go to filament change position on pause, return to print position on resume
-  //#define HOME_BEFORE_FILAMENT_CHANGE       // Ensure homing has been completed prior to parking for filament change
+  #define PAUSE_PARK_RETRACT_FEEDRATE 60           // Initial retract feedrate in mm/s
+  #define PAUSE_PARK_RETRACT_LENGTH 2              // Initial retract in mm
+                                                   // It is a short retract used immediately after print interrupt before move to filament exchange position
+  #define FILAMENT_CHANGE_UNLOAD_FEEDRATE 10       // Unload filament feedrate in mm/s - filament unloading can be fast
+  #define FILAMENT_CHANGE_UNLOAD_LENGTH 150        // Unload filament length from hotend in mm
+                                                   // Longer length for bowden printers to unload filament from whole bowden tube,
+                                                   // shorter length for printers without bowden to unload filament from extruder only,
+                                                   // 0 to disable unloading for manual unloading
+  #define FILAMENT_CHANGE_LOAD_FEEDRATE 6          // Load filament feedrate in mm/s - filament loading into the bowden tube can be fast
+  #define FILAMENT_CHANGE_LOAD_LENGTH 100          // Load filament length over hotend in mm
+                                                   // Longer length for bowden printers to fast load filament into whole bowden tube over the hotend,
+                                                   // Short or zero length for printers without bowden where loading is not used
+  #define ADVANCED_PAUSE_EXTRUDE_FEEDRATE 3        // Extrude filament feedrate in mm/s - must be slower than load feedrate
+  #define ADVANCED_PAUSE_EXTRUDE_LENGTH 10         // Extrude filament length in mm after filament is loaded over the hotend,
+                                                   // 0 to disable for manual extrusion
+                                                   // Filament can be extruded repeatedly from the filament exchange menu to fill the hotend,
+                                                   // or until outcoming filament color is not clear for filament color change
+  #define PAUSE_PARK_NOZZLE_TIMEOUT 240            // Turn off nozzle if user doesn't change filament within this time limit in seconds
+  #define FILAMENT_CHANGE_NUMBER_OF_ALERT_BEEPS 10 // Number of alert beeps before printer goes quiet
+  #define PAUSE_PARK_NO_STEPPER_TIMEOUT            // Enable to have stepper motors hold position during filament change
+                                                   // even if it takes longer than DEFAULT_STEPPER_DEACTIVE_TIME.
+  #define PARK_HEAD_ON_PAUSE                       // Go to filament change position on pause, return to print position on resume
+  #define HOME_BEFORE_FILAMENT_CHANGE              // Ensure homing has been completed prior to parking for filament change
 #endif
 
 // @section tmc
@@ -1424,7 +1424,7 @@
   #define USER_DESC_2 "Preheat for PLA"
   #define USER_GCODE_2 "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
 
-  #define USER_DESC_3 "Preheat for ABS"
+  #define USER_DESC_3 "Preheat for PETG"
   #define USER_GCODE_3 "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_2_TEMP_HOTEND)
 
   #define USER_DESC_4 "Heat Bed/Home/Level"
