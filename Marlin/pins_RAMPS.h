@@ -71,7 +71,7 @@
 //
 #define X_MIN_PIN           3
 #ifndef X_MAX_PIN
-  #define X_MAX_PIN         2
+  #define X_MAX_PIN         -1 // 2 by default
 #endif
 #define Y_MIN_PIN          14
 #define Y_MAX_PIN          15
@@ -233,6 +233,7 @@
   #if HOTENDS == 1
     #define FAN1_PIN     MOSFET_D_PIN
   #else
+    #define FAN1_PIN     2                    // 11 == Left Servo Connector | 12 == Right Servo Connector | 2 == X Max End Stop
     #define HEATER_1_PIN MOSFET_D_PIN
   #endif
 #endif
