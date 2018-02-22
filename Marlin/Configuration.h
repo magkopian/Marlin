@@ -369,10 +369,16 @@
   //#define  DEFAULT_Ki 2.25
   //#define  DEFAULT_Kd 440
 
-  // TEVO Tarantula with E3D Chimera
-  #define  DEFAULT_Kp 30.12
-  #define  DEFAULT_Ki 3.20
-  #define  DEFAULT_Kd 70.95
+  // TEVO Tarantula with E3D Chimera (PLA) "M303 E0 C8 S210"
+  //#define  DEFAULT_Kp 30.12
+  //#define  DEFAULT_Ki 3.20
+  //#define  DEFAULT_Kd 70.95
+
+  // TEVO Tarantula with E3D Chimera (PETG) "M303 E0 C16 S235" 50% Fan
+  #define  DEFAULT_Kp 24.95
+  #define  DEFAULT_Ki 2.74
+  #define  DEFAULT_Kd 56.72
+
 
 // "M303 E0 C8 S210" to run autotune on the hotend at 210 degreesC for 8 cycles for the primary hotend.
 // "M303 E1 C8 S210" to run autotune on the hotend at 210 degreesC for 8 cycles for the secondary hotend.
